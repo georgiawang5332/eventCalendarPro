@@ -47,21 +47,6 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     """ Custom user model """  """自定義用戶模型"""
-    # 其他欄位...
-    groups = models.ManyToManyField(
-        Group,
-        verbose_name=_("groups"),
-        blank=True,
-        help_text=_("The groups this user belongs to."),
-        related_name="user_groups",  # 添加這行
-    )
-    user_permissions = models.ManyToManyField(
-        Permission,
-        verbose_name=_("user permissions"),
-        blank=True,
-        help_text=_("Specific permissions for this user."),
-        related_name="user_permissions",  # 添加這行
-    )
 
     email = models.EmailField(
         _("Email Address"),

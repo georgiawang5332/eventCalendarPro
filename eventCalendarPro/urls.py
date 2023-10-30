@@ -15,11 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from .views import DashboardView
+from . import views
 
 urlpatterns = [
     # add app
+    # path('update-event/', views.UpdateEventView.as_view(), name='update-event'),
+    path('update-event/', views.update_event, name='update-event'),
+    
+    path("", views.DashboardView.as_view(), name="dashboard"),
+
     path("employeeApp/", include("employeeApp.urls")),
-    path("calendarApp/", include("calendarApp.urls")),
+    path("calendarapp/", include("calendarApp.urls")),
     path("accountsApp/", include("accountsApp.urls")),
     path("coreApp/", include("coreApp.urls")),
 

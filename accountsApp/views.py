@@ -13,11 +13,13 @@ class SignInView(View):
     form_class = SignInForm
 
     def get(self, request, *args, **kwargs):
+        print("我有在運作in")
         forms = self.form_class()
         context = {"form": forms}
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
+        print("我有在運作in")
         forms = self.form_class(request.POST)
         if forms.is_valid():
             email = forms.cleaned_data["email"]
@@ -32,26 +34,28 @@ class SignInView(View):
 # 登出
 def signout(request):
     """ User signout view """
-
+    print("我有在運作 out")
     logout(request)
-    return redirect("acc:signin")
+    return redirect("accounts:signin")
 
 # 註冊
 class SignUpView(View):
     """ User signup/registration(登記) view """
-
+    print("我有在運作up")
     template_name = "accounts/signup.html"
     form_class = SignUpForm
 
     def get(self, request, *args, **kwargs):
+        print("我有在運作up")
         forms = self.form_class()
         context = {"form": forms}
         return render(request, self.template_name, context)
 
     def post(self, request, *args, **kwargs):
+        print("我有在運作up")
         forms = self.form_class(request.POST)
         if forms.is_valid():
             forms.save()
-            return redirect("acc:signin")
+            return redirect("accounts:signin")
         context = {"form": forms}
         return render(request, self.template_name, context)

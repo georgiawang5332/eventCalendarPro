@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-app_name = "acc"
+app_name = "accounts"
 
 # Create your urls here.
 urlpatterns = [
