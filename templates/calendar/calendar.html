@@ -286,37 +286,42 @@ Fullcalender normal css & @media max-width (RWD我用最直觀方式來表達跟
       eventDrop: function(info) {
         var newStartDate = info.event.start.toISOString();
         var eventId = info.event.id;
-        console.log(eventId)
+        // var eventId = parseInt(data.eventId);
 
-        if (!confirm("您確定要進行此變更嗎?")) {
-          info.revert();
-          return;
-        }
+        // console.log("eventId:" , eventId)
+        console.log("Received data: eventId =", event_id, "newStartDate =", new_start_date)
 
-        // 發送 AJAX 請求到後端以更新事件日期
-        $.ajax({
-          // url: '{% url "update-event" %}',
-          url: '/update-event/',
-          method: 'POST',
-          data: JSON.stringify({
-              eventId: eventId,
-              newStartDate: newStartDate,
-              // csrfmiddlewaretoken: csrf_token  // 傳遞 CSRF 令牌
-          }),
-          contentType: 'application/json',
-          success: function(response) {
-              // 在成功時執行的操作
-              console.log("活動更新成功。 " , response);
-          },
-          error: function(error) {
-              // 在出錯時執行的操作
-              console.error("更新事件時出錯： " + error);
-              info.revert();
+
+        if (eventId) {
+          if (!confirm("您確定要進行此變更嗎?")) {
+            info.revert();
+            return;
           }
-        });
 
-        
-      
+          // 發送 AJAX 請求到後端以更新事件日期
+          $.ajax({
+            // url: '{% url "update-event" %}',
+            url: '/update-event/',
+            method: 'POST',
+            data: JSON.stringify({
+              eventId: eventId,
+              newStartDate: newStartDate
+                // csrfmiddlewaretoken: csrf_token  // 傳遞 CSRF 令牌
+            }),
+            contentType: 'application/json',
+            success: function(response) {
+                // 在成功時執行的操作
+                console.log("活動更新成功。 " , response);
+            },
+            error: function(error) {
+                // 在出錯時執行的操作
+                console.error("更新事件時出錯： " , error);
+                info.revert();
+            }
+          });
+        } else {
+          console.error("eventId 為空或無效，請確保傳遞有效的 eventId。");
+        }
       },
       
       
@@ -356,36 +361,45 @@ Fullcalender normal css & @media max-width (RWD我用最直觀方式來表達跟
       editable: true,
       eventDrop: function(info) {
         var newStartDate = info.event.start.toISOString();
-        var eventId = info.event.id;
-        console.log(eventId)
+        // var eventId = info.event.id;
+        var eventId = parseInt(data.eventId);
 
-        if (!confirm("您確定要進行此變更嗎?")) {
-          info.revert();
-          return;
+        // console.log(eventId)
+        console.log("Received data: eventId =", event_id, "newStartDate =", new_start_date)
+
+        if (eventId) {
+          if (!confirm("您確定要進行此變更嗎?")) {
+            info.revert();
+            return;
+          }
+
+          // 發送 AJAX 請求到後端以更新事件日期
+          $.ajax({
+            // url: '/update-event/',
+            // url: '{% url "update-event" %}',
+            url: '/update-event/',
+            method: 'POST',
+            data: JSON.stringify({
+                eventId: eventId,
+                newStartDate: newStartDate,
+                // csrfmiddlewaretoken: csrf_token  // 傳遞 CSRF 令牌
+            }),
+            contentType: 'application/json',
+            success: function(response) {
+                // 在成功時執行的操作
+                console.log("活動更新成功。" , response);
+            },
+            error: function(error) {
+                // 在出錯時執行的操作
+                console.error("更新事件時出錯： " + error);
+                info.revert();
+            }
+          });
+
+        } else {
+          console.error("eventId 為空或無效，請確保傳遞有效的 eventId。");
         }
 
-        // 發送 AJAX 請求到後端以更新事件日期
-        $.ajax({
-          // url: '/update-event/',
-          // url: '{% url "update-event" %}',
-          url: '/update-event/',
-          method: 'POST',
-          data: JSON.stringify({
-              eventId: eventId,
-              newStartDate: newStartDate,
-              // csrfmiddlewaretoken: csrf_token  // 傳遞 CSRF 令牌
-          }),
-          contentType: 'application/json',
-          success: function(response) {
-              // 在成功時執行的操作
-              console.log("活動更新成功。" , response);
-          },
-          error: function(error) {
-              // 在出錯時執行的操作
-              console.error("更新事件時出錯： " + error);
-              info.revert();
-          }
-        });
       },
 
       dayMaxEvents: true, // 當事件太多時允許“更多”鏈接
@@ -427,41 +441,45 @@ Fullcalender normal css & @media max-width (RWD我用最直觀方式來表達跟
       // },
       eventDrop: function(info) {
         var newStartDate = info.event.start.toISOString();
-        var eventId = info.event.id;
-        console.log(eventId)
+        // var eventId = info.event.id;
+        var eventId = parseInt(data.eventId);
 
-        if (!confirm("您確定要進行此變更嗎?")) {
-          info.revert();
-          return;
-        }
+        // console.log(eventId)
+        console.log("Received data: eventId =", event_id, "newStartDate =", new_start_date)
 
-        // 發送 AJAX 請求到後端以更新事件日期
-        $.ajax({
-          // url: '{% url "update-event" %}',
-          url: '/update-event/',
-          method: 'POST',
-          data: JSON.stringify({
-              eventId: eventId,
-              newStartDate: newStartDate,
-              // csrfmiddlewaretoken: csrf_token  // 傳遞 CSRF 令牌
-          }),
-          contentType: 'application/json',
-          success: function(response) {
-              // 在成功時執行的操作
-              console.log("活動更新成功." , response);
-          },
-          error: function(error) {
-              // 在出錯時執行的操作
-              console.error("更新事件時出錯: " + error);
-              info.revert();
+        if (eventId) {
+          if (!confirm("您確定要進行此變更嗎?")) {
+            info.revert();
+            return;
           }
-        });
 
+          // 發送 AJAX 請求到後端以更新事件日期
+          $.ajax({
+            // url: '{% url "update-event" %}',
+            url: '/update-event/',
+            method: 'POST',
+            data: JSON.stringify({
+                eventId: eventId,
+                newStartDate: newStartDate,
+                // csrfmiddlewaretoken: csrf_token  // 傳遞 CSRF 令牌
+            }),
+            contentType: 'application/json',
+            success: function(response) {
+                // 在成功時執行的操作
+                console.log("活動更新成功." , response);
+            },
+            error: function(error) {
+                // 在出錯時執行的操作
+                console.error("更新事件時出錯: " + error);
+                info.revert();
+            }
+          });
+
+        } else {
+          console.error("eventId 為空或無效，請確保傳遞有效的 eventId。");
+        }
         
       },
-
-      
-
       dayMaxEvents: true, // 當事件太多時允許“更多”鏈接
       events: {{ events|safe }},
     });

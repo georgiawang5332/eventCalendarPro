@@ -54,14 +54,31 @@ class User(AbstractBaseUser, PermissionsMixin):
         unique=True,
         help_text="Ex: example@example.com",
     )
+
+    first_name = models.CharField(_('first name'), max_length=50)
+    last_name = models.CharField(_('last name'), max_length=50)
+
+
     is_staff = models.BooleanField(_("Staff status"), default=False)
     is_active = models.BooleanField(_("Active"), default=True)
     date_joined = models.DateTimeField(_("Date Joined"), auto_now_add=True)
     last_updated = models.DateTimeField(_("Last Updated"), auto_now=True)
 
+    is_employee = models.BooleanField(default=False)
+    is_employer = models.BooleanField(default=False)
+
+
     objects = UserManager()
 
     USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = []
 
     def __str__(self):
         return self.email
+    
+    class Meta:
+        verbose_name = "user"
+        verbose_name_plural = "users"
+
+
+# User(email=email, otherfields)

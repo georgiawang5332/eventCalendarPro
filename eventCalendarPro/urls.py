@@ -18,7 +18,12 @@ from django.urls import include, path
 from .views import DashboardView
 from . import views
 
+from django.conf import settings
+
 urlpatterns = [
+    # Django 調試工具列
+    path("__debug__/", include("debug_toolbar.urls")),
+
     # add app
     # path('update-event/', views.UpdateEventView.as_view(), name='update-event'),
     path('update-event/', views.update_event, name='update-event'),
@@ -32,3 +37,9 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
 ]
+
+
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns += path("__debug__/", include("debug_toolbar.urls")),
+    

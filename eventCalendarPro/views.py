@@ -32,7 +32,6 @@ class DashboardView(LoginRequiredMixin, View):
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth.decorators import login_required
 # 可以刪除的
-from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.views import View
@@ -47,9 +46,20 @@ def update_event(request):
 
     if request.method == 'POST':
         data = json.loads(request.body)
+        # event_id = data.get('eventId')
+
+        # 檢查 eventId 是否為有效的數字
+        if not event_id or not event_id.isdigit():
+            return JsonResponse({"error": "Invalid eventId/無效的 eventId"}, status=400)
+
+        event_id = int(event_id)  # 將 eventId 轉換為整數
+
+        
         event_id = data['eventId']
         new_start_date = data['newStartDate']
-        print("all", event_id, new_start_date)
+        # print("all", event_id, new_start_date)
+        print("Received data: eventId =", event_id, "newStartDate =", new_start_date)
+
         try:
             event = Event.objects.get(id=event_id)
             event.start_time = new_start_date
@@ -65,7 +75,6 @@ def update_event(request):
 
     # 如果不是 POST 請求，返回一個適當的 HttpResponse
     return HttpResponse("Invalid request/無效的請求", status=400)
-
 
 
 # '''

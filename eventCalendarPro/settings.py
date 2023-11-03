@@ -45,6 +45,10 @@ INSTALLED_APPS = [
     'employeeApp',
     'calendarApp',
 
+    # Django 調試工具列
+    'debug_toolbar',
+
+
 ]
 
 MIDDLEWARE = [
@@ -55,6 +59,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # Django 調試工具列
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'eventCalendarPro.urls'
@@ -81,10 +87,24 @@ WSGI_APPLICATION = 'eventCalendarPro.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+# 調用調適 Django Debug Toolbar
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'calendar_db',
+        'USER': 'postgres',
+        'PASSWORD': '***********************',
+        'HOST': 'localhost',
+        'PORT': '5432',
+        'DISABLE_SERVER_SIDE_CURSORS': True,
+        # 游標問題: https://stackoverflow.com/questions/19069722/psycopg2-operationalerror-cursor-does-not-exist
     }
 }
 
@@ -135,3 +155,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Django CSRF 保護
 CSRF_COOKIE_SECURE = True  # 確保 CSRF Cookie 設置為安全
 CSRF_USE_SESSIONS = True   # 確保使用會話來存儲 CSRF 令牌
+
+# Django 調試工具列
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
